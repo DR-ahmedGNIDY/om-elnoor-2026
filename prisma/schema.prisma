@@ -1,0 +1,110 @@
+// ─────────────────────────────────────────────────────────────
+// Prisma Schema — أم النور للأدوات المنزلية
+// Provider: MongoDB
+// ─────────────────────────────────────────────────────────────
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+// ─── Admin ────────────────────────────────────────────────────
+// Stores admin credentials for NextAuth CredentialsProvider.
+// Only one admin account is required; multi-admin is supported.
+
+model Admin {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  username  String   @unique
+  password  String   // bcrypt hash
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  sessions Session[]
+
+  @@map("admins")
+}
+
+// ─── NextAuth Session / Account (required by @auth/prisma-adapter) ────────────
+
+model Session {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  sessionToken String   @unique
+  adminId      String   @db.ObjectId
+  expires      DateTime
+
+  admin Admin @relation(fields: [adminId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model VerificationToken {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+// ─── Category ────────────────────────────────────────────────
+// Each product belongs to exactly one category.
+// slug is auto-generated from name and must be URL-safe.
+
+model Category {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  slug      String   @unique          // e.g. "atqam-alhellal"
+  imageUrl  String   @default("")     // relative path or absolute URL
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  products Product[]
+
+  @@map("categories")
+}
+
+// ─── Product ─────────────────────────────────────────────────
+// Core product model. All prices are in Egyptian Pounds (EGP).
+// images is an array of URL strings (supports multiple images).
+
+model Product {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  slug          String   @unique          // e.g. "granite-cookware-set-7-pieces"
+  description   String   @default("")
+  categoryId    String   @db.ObjectId
+  images        String[]                  // ordered list; first is the cover image
+  originalPrice Float
+  discountPrice Float?                    // null = no active discount
+                                          // discountPercent is derived: (1 - discountPrice/originalPrice) * 100
+  available     Boolean  @default(true)
+  isFeatured    Boolean  @default(false)
+  isOffer       Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  category Category @relation(fields: [categoryId], references: [id])
+
+  @@map("products")
+}
+
+// ─── Settings ────────────────────────────────────────────────
+// Single-document store for site-wide configuration.
+// Always read/write the document with id = "main".
+// whatsappNumber is editable from the admin dashboard.
+
+model Settings {
+  id             String   @id @map("_id")   // always "main"
+  whatsappNumber String   @default("+201012506517")
+  facebookUrl    String   @default("")
+  instagramUrl   String   @default("")
+  tiktokUrl      String   @default("")
+  updatedAt      DateTime @updatedAt
+
+  @@map("settings")
+}
