@@ -224,7 +224,7 @@ function HeroSection() {
         ))}
       </div>
 
-      <div className="container-store relative py-20 text-center">
+      <div className="container-store relative py-20 text-center lg:pl-40">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gold/20 border border-gold/30 mb-6">
           <span className="text-gold text-sm font-cairo">✨</span>
           <span className="font-cairo text-sm text-gold">أفضل جودة بأفضل سعر</span>
