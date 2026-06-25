@@ -210,7 +210,7 @@ function HeroSection() {
     <section
       className="relative flex items-center justify-center lg:justify-end bg-cover bg-center bg-no-repeat"
       style={{
-        backgroundImage: "url('/images/banner.png')",
+        backgroundImage: "url('/images/banner1.png')",
         minHeight: "clamp(650px, 80vh, 750px)",
       }}
     >
