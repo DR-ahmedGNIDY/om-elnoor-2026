@@ -73,7 +73,7 @@ export function AdminSidebar({ username, open, onClose }: AdminSidebarProps) {
         <div className="flex items-center gap-3 px-5 py-5 border-b border-white/10">
           <div className="w-10 h-10 rounded-xl overflow-hidden bg-white/15 flex-shrink-0 flex items-center justify-center">
             <Image
-              src="/images/logo.png"
+              src="/images/logo1.png"
               alt="كوكي هوم"
               width={36}
               height={36}

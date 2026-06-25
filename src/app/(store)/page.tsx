@@ -15,7 +15,7 @@ import HomeBanner from "@/components/store/HomeBanner";
 import type { ProductWithCategoryDTO, CategoryDTO } from "@/types";
 
 const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
-const DEFAULT_OG_IMAGE = `${BASE}/images/logo.png`;
+const DEFAULT_OG_IMAGE = `${BASE}/images/logo1.png`;
 
 export const metadata: Metadata = {
   title: "كوكي هوم — كل ما يحتاجه منزلك",

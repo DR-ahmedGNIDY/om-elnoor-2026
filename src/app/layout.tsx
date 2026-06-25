@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     description: "كل ما يحتاجه منزلك... أدوات منزلية عصرية وإكسسوارات منزلية بأفضل جودة وأفضل الأسعار",
     images: [
       {
-        url: `${process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"}/images/logo.png`,
+        url: `${process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"}/images/logo1.png`,
         width: 1200,
         height: 630,
         alt: "كوكي هوم",
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "كوكي هوم",
     description: "كل ما يحتاجه منزلك... أدوات منزلية عصرية وإكسسوارات منزلية",
-    images: [`${process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"}/images/logo.png`],
+    images: [`${process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"}/images/logo1.png`],
   },
 };
 

@@ -27,7 +27,7 @@ export default function AboutPage() {
           <div className="admin-card flex flex-col sm:flex-row items-center gap-6">
             <div className="w-24 h-24 rounded-2xl overflow-hidden bg-gray-100 flex-shrink-0 flex items-center justify-center">
               <Image
-                src="/images/logo.png"
+                src="/images/logo1.png"
                 alt="كوكي هوم"
                 width={88}
                 height={88}

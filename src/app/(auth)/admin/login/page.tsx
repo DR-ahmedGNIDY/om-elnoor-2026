@@ -50,7 +50,7 @@ export default async function AdminLoginPage() {
           <div className="bg-hero-gradient px-8 pt-10 pb-8 text-center">
             <div className="mx-auto mb-4 w-20 h-20 rounded-2xl bg-white/15 flex items-center justify-center overflow-hidden">
               <Image
-                src="/images/logo.png"
+                src="/images/logo1.png"
                 alt="كوكي هوم"
                 width={72}
                 height={72}

@@ -63,7 +63,7 @@ export function StoreHeader({ categories, settings }: StoreHeaderProps) {
           <Link href="/" className="flex items-center gap-2.5 flex-shrink-0">
             <div className="w-10 h-10 rounded-xl overflow-hidden bg-white/15 flex items-center justify-center">
               <Image
-                src="/images/logo.png"
+                src="/images/logo1.png"
                 alt="كوكي هوم"
                 width={36}
                 height={36}

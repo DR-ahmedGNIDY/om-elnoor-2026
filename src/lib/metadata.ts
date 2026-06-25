@@ -11,7 +11,7 @@ import { formatPrice, effectivePrice } from "@/lib/utils";
 
 const BASE  = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 const BRAND = "كوكي هوم";
-const LOGO  = `${BASE}/images/logo.png`;
+const LOGO  = `${BASE}/images/logo1.png`;
 
 // ── Generic page metadata ─────────────────────────────────────
 
