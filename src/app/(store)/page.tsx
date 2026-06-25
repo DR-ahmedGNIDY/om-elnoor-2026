@@ -224,9 +224,9 @@ function HeroSection() {
           <Image
             src="/images/banner.png"
             alt="كوكي هوم"
-            width={700}
-            height={700}
-            className="w-full max-w-md h-auto object-contain"
+            width={1717}
+            height={916}
+            className="w-full max-w-xl h-auto object-contain"
             priority
           />
         </div>
