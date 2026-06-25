@@ -208,12 +208,7 @@ export default async function HomePage() {
 
 function HeroSection() {
   return (
-    <section
-  className="relative overflow-hidden bg-cover bg-center bg-no-repeat"
-  style={{
-    backgroundImage: "url('/images/banner.png')",
-  }}
->
+    <section className="relative overflow-hidden bg-hero-gradient">
       <div aria-hidden className="absolute inset-0 pointer-events-none">
         {[
           "w-96 h-96 -top-24 -end-24 opacity-[0.06]",
@@ -224,40 +219,53 @@ function HeroSection() {
         ))}
       </div>
 
-      <div className="container-store relative py-20 text-center lg:pl-40">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gold/20 border border-gold/30 mb-6">
-          <span className="text-gold text-sm font-cairo">✨</span>
-          <span className="font-cairo text-sm text-gold">أفضل جودة بأفضل سعر</span>
+      <div className="container-store relative py-12 lg:py-20 flex flex-col-reverse lg:flex-row items-center gap-10">
+        <div className="w-full lg:w-1/2 flex justify-center">
+          <Image
+            src="/images/banner.png"
+            alt="كوكي هوم"
+            width={700}
+            height={700}
+            className="w-full max-w-md h-auto object-contain"
+            priority
+          />
         </div>
 
-        <h1 className="font-cairo font-black text-white mb-4"
-          style={{ fontSize: "clamp(2rem,5vw,3.5rem)", lineHeight: 1.25 }}>
-          كوكي هوم<br />
-          <span className="text-gold">COKIE HOME</span>
-        </h1>
+        <div className="w-full lg:w-1/2 text-center lg:text-right">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gold/20 border border-gold/30 mb-6">
+            <span className="text-gold text-sm font-cairo">✨</span>
+            <span className="font-cairo text-sm text-gold">أفضل جودة بأفضل سعر</span>
+          </div>
 
-        <p className="font-cairo text-white/80 text-lg mb-8 max-w-xl mx-auto">
-          كل احتياجات منزلك في مكان واحد — منفلوط، أسيوط
-        </p>
+          <h1 className="font-cairo font-black text-white mb-4"
+            style={{ fontSize: "clamp(2rem,5vw,3.5rem)", lineHeight: 1.25 }}>
+            كوكي هوم<br />
+            <span className="text-gold">COKIE HOME</span>
+          </h1>
 
-        <div className="flex flex-wrap items-center justify-center gap-4">
-          <Link href="/categories" className="btn-gold btn-lg">تصفح المنتجات</Link>
-          <Link href="/offers" className="btn border-2 border-white/40 text-white hover:bg-white/10 btn-lg">
-            العروض الخاصة
-          </Link>
-        </div>
+          <p className="font-cairo text-white/80 text-lg mb-8 max-w-xl mx-auto lg:mx-0">
+            كل احتياجات منزلك في مكان واحد — منفلوط، أسيوط
+          </p>
 
-        <div className="flex flex-wrap justify-center gap-8 mt-14">
-          {[
-            { value: "٥٠٠+", label: "منتج متاح"     },
-            { value: "٥",    label: "أقسام متنوعة"  },
-            { value: "١٠٠٪", label: "جودة مضمونة"  },
-          ].map((stat, i) => (
-            <div key={i} className="text-center">
-              <p className="font-cairo font-black text-gold text-2xl">{stat.value}</p>
-              <p className="font-cairo text-white/60 text-sm">{stat.label}</p>
-            </div>
-          ))}
+          <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4">
+            <Link href="/categories" className="btn-gold btn-lg">تصفح المنتجات</Link>
+            <Link href="/offers" className="btn border-2 border-white/40 text-white hover:bg-white/10 btn-lg">
+              العروض الخاصة
+            </Link>
+          </div>
+
+          <div className="flex flex-wrap justify-center lg:justify-start gap-8 mt-14">
+            {[
+              { value: "٥٠٠+", label: "منتج متاح"     },
+              { value: "٥",    label: "أقسام متنوعة"  },
+              { value: "١٠٠٪", label: "جودة مضمونة"  },
+            ].map((stat, i) => (
+              <div key={i} className="text-center">
+                <p className="font-cairo font-black text-gold text-2xl">{stat.value}</p>
+                <p className="font-cairo text-white/60 text-sm">{stat.label}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
