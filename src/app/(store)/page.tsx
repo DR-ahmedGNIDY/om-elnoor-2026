@@ -7,7 +7,6 @@
 
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
 import { prisma } from "@/lib/prisma";
 import { calcDiscountPercent } from "@/lib/utils";
 import { buildOrganizationLD, buildLocalBusinessLD, buildWebSiteLD } from "@/lib/metadata";
@@ -208,37 +207,35 @@ export default async function HomePage() {
 
 function HeroSection() {
   return (
-    <section className="relative overflow-hidden bg-hero-gradient">
-      <div aria-hidden className="absolute inset-0 pointer-events-none">
-        {[
-          "w-96 h-96 -top-24 -end-24 opacity-[0.06]",
-          "w-64 h-64 bottom-8 -start-16 opacity-[0.04]",
-          "w-40 h-40 top-1/2 start-1/3 opacity-[0.03]",
-        ].map((cls, i) => (
-          <div key={i} className={`absolute rounded-full bg-gold ${cls}`} />
-        ))}
-      </div>
+    <section
+      className="relative flex items-center justify-center lg:justify-end bg-cover bg-center bg-no-repeat"
+      style={{
+        backgroundImage: "url('/images/banner.png')",
+        minHeight: "clamp(650px, 80vh, 750px)",
+      }}
+    >
+      {/* Dark navy overlay for readability */}
+      <div
+        aria-hidden
+        className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(rgba(6,25,56,.65), rgba(6,25,56,.65))",
+        }}
+      />
 
-      <div className="container-store relative py-12 lg:py-20 flex flex-col-reverse lg:flex-row items-center gap-10">
-        <div className="w-full lg:w-1/2 flex justify-center">
-          <Image
-            src="/images/banner.png"
-            alt="كوكي هوم"
-            width={1717}
-            height={916}
-            className="w-full max-w-xl h-auto object-contain"
-            priority
-          />
-        </div>
-
-        <div className="w-full lg:w-1/2 text-center lg:text-right">
+      <div className="container-store relative flex justify-center lg:justify-end">
+        <div
+          className="w-full text-center lg:text-right py-16"
+          style={{ maxWidth: "600px" }}
+        >
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gold/20 border border-gold/30 mb-6">
             <span className="text-gold text-sm font-cairo">✨</span>
             <span className="font-cairo text-sm text-gold">أفضل جودة بأفضل سعر</span>
           </div>
 
           <h1 className="font-cairo font-black text-white mb-4"
-            style={{ fontSize: "clamp(2rem,5vw,3.5rem)", lineHeight: 1.25 }}>
+            style={{ fontSize: "clamp(1.75rem,5vw,3.5rem)", lineHeight: 1.25 }}>
             كوكي هوم<br />
             <span className="text-gold">COKIE HOME</span>
           </h1>
