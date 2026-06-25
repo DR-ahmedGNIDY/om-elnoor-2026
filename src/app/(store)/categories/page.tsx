@@ -10,7 +10,7 @@ import { prisma } from "@/lib/prisma";
 
 export const metadata: Metadata = {
   title: "الأقسام",
-  description: "تصفح جميع أقسام أم النور للأدوات المنزلية",
+  description: "تصفح جميع أقسام كوكي هوم",
 };
 export const dynamic = "force-dynamic";
 

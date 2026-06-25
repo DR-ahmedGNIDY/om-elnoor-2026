@@ -74,7 +74,7 @@ export function AdminSidebar({ username, open, onClose }: AdminSidebarProps) {
           <div className="w-10 h-10 rounded-xl overflow-hidden bg-white/15 flex-shrink-0 flex items-center justify-center">
             <Image
               src="/images/logo.png"
-              alt="أم النور"
+              alt="كوكي هوم"
               width={36}
               height={36}
               className="object-contain"
@@ -82,7 +82,7 @@ export function AdminSidebar({ username, open, onClose }: AdminSidebarProps) {
           </div>
           <div className="min-w-0">
             <p className="font-cairo font-black text-white text-sm leading-tight truncate">
-              أم النور
+              كوكي هوم
             </p>
             <p className="font-cairo text-white/50 text-xs leading-tight">
               لوحة التحكم

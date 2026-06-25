@@ -10,7 +10,7 @@ import type { ProductWithCategoryDTO, CategoryWithCountDTO } from "@/types";
 import { formatPrice, effectivePrice } from "@/lib/utils";
 
 const BASE  = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
-const BRAND = "أم النور للأدوات المنزلية";
+const BRAND = "كوكي هوم";
 const LOGO  = `${BASE}/images/logo.png`;
 
 // ── Generic page metadata ─────────────────────────────────────

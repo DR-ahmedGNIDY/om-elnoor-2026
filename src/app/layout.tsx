@@ -17,11 +17,11 @@ export const metadata: Metadata = {
     process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
   ),
   title: {
-    default: "أم النور للأدوات المنزلية",
-    template: "%s | أم النور للأدوات المنزلية",
+    default: "كوكي هوم",
+    template: "%s | كوكي هوم",
   },
   description:
-    "كل احتياجات منزلك في مكان واحد — أطقم الحلل، أدوات المطبخ، أطقم السفرة، المفروشات، ومستلزمات التخزين بأفضل الأسعار في منفلوط، أسيوط.",
+    "كل ما يحتاجه منزلك... أدوات منزلية عصرية، أدوات مطبخ، تخزين وتنظيم، مفروشات، وإكسسوارات منزلية بأفضل جودة وأفضل الأسعار.",
   keywords: [
     "أدوات منزلية",
     "أطقم حلل",
@@ -31,10 +31,10 @@ export const metadata: Metadata = {
     "منفلوط",
     "أسيوط",
     "مصر",
-    "أم النور",
+    "كوكي هوم",
   ],
-  authors: [{ name: "أم النور للأدوات المنزلية" }],
-  creator: "أم النور للأدوات المنزلية",
+  authors: [{ name: "كوكي هوم" }],
+  creator: "كوكي هوم",
   robots: {
     index: true,
     follow: true,
@@ -43,22 +43,22 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "ar_EG",
-    siteName: "أم النور للأدوات المنزلية",
-    title: "أم النور للأدوات المنزلية",
-    description: "كل احتياجات منزلك في مكان واحد — منفلوط، أسيوط",
+    siteName: "كوكي هوم",
+    title: "كوكي هوم",
+    description: "كل ما يحتاجه منزلك... أدوات منزلية عصرية وإكسسوارات منزلية بأفضل جودة وأفضل الأسعار",
     images: [
       {
         url: `${process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"}/images/logo.png`,
         width: 1200,
         height: 630,
-        alt: "أم النور للأدوات المنزلية",
+        alt: "كوكي هوم",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "أم النور للأدوات المنزلية",
-    description: "كل احتياجات منزلك في مكان واحد",
+    title: "كوكي هوم",
+    description: "كل ما يحتاجه منزلك... أدوات منزلية عصرية وإكسسوارات منزلية",
     images: [`${process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"}/images/logo.png`],
   },
 };

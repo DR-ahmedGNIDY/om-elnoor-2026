@@ -11,7 +11,7 @@ import type { ProductWithCategoryDTO } from "@/types";
 
 export const metadata: Metadata = {
   title:       "العروض الخاصة",
-  description: "أفضل عروض وخصومات أم النور للأدوات المنزلية",
+  description: "أفضل عروض وخصومات كوكي هوم",
 };
 export const dynamic = "force-dynamic";
 

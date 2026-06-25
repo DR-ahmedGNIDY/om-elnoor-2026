@@ -64,7 +64,7 @@ export function StoreHeader({ categories, settings }: StoreHeaderProps) {
             <div className="w-10 h-10 rounded-xl overflow-hidden bg-white/15 flex items-center justify-center">
               <Image
                 src="/images/logo.png"
-                alt="أم النور"
+                alt="كوكي هوم"
                 width={36}
                 height={36}
                 className="object-contain"
@@ -73,10 +73,10 @@ export function StoreHeader({ categories, settings }: StoreHeaderProps) {
             </div>
             <div className="hidden sm:block">
               <p className="font-cairo font-black text-white text-base leading-tight">
-                أم النور
+                كوكي هوم
               </p>
               <p className="font-cairo text-gold text-xs leading-tight">
-                للأدوات المنزلية
+                COKIE HOME
               </p>
             </div>
           </Link>

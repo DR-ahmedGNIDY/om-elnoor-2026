@@ -1,7 +1,7 @@
 {
   "name": "om-alnour-store",
   "version": "1.0.0",
-  "description": "أم النور للأدوات المنزلية - Next.js 15 Production Store",
+  "description": "كوكي هوم - Next.js 15 Production Store",
   "private": true,
   "scripts": {
     "dev": "next dev",

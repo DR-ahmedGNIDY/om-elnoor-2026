@@ -9,7 +9,7 @@ import { prisma } from "@/lib/prisma";
 
 export const metadata: Metadata = {
   title:       "تواصل معنا",
-  description: "تواصل مع أم النور للأدوات المنزلية عبر واتساب أو وسائل التواصل الاجتماعي",
+  description: "تواصل مع كوكي هوم عبر واتساب أو وسائل التواصل الاجتماعي",
 };
 export const dynamic = "force-dynamic";
 

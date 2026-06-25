@@ -9,7 +9,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title:       "من نحن",
-  description: "تعرف على أم النور للأدوات المنزلية في منفلوط، أسيوط",
+  description: "تعرف على كوكي هوم في منفلوط، أسيوط",
 };
 
 export default function AboutPage() {
@@ -17,7 +17,7 @@ export default function AboutPage() {
     <div>
       <div className="page-hero">
         <h1 className="page-hero-title">من نحن</h1>
-        <p className="page-hero-sub">قصة أم النور للأدوات المنزلية</p>
+        <p className="page-hero-sub">قصة كوكي هوم</p>
       </div>
 
       <div className="container-store py-12">
@@ -28,7 +28,7 @@ export default function AboutPage() {
             <div className="w-24 h-24 rounded-2xl overflow-hidden bg-gray-100 flex-shrink-0 flex items-center justify-center">
               <Image
                 src="/images/logo.png"
-                alt="أم النور"
+                alt="كوكي هوم"
                 width={88}
                 height={88}
                 className="object-contain"
@@ -36,7 +36,7 @@ export default function AboutPage() {
             </div>
             <div>
               <h2 className="font-cairo font-black text-xl text-brand-text mb-1">
-                أم النور للأدوات المنزلية
+                كوكي هوم
               </h2>
               <p className="font-cairo text-brand-text/60 text-sm">
                 كل احتياجات منزلك في مكان واحد
@@ -52,7 +52,7 @@ export default function AboutPage() {
             {
               icon: "📖",
               title: "قصتنا",
-              body: "أم النور للأدوات المنزلية هي وجهتك الأولى لكل ما يحتاجه منزلك من أدوات ومفروشات عالية الجودة بأسعار تنافسية. نحرص على تقديم أفضل المنتجات المنزلية المتنوعة لتلبية احتياجات كل أسرة.",
+              body: "كوكي هوم هي وجهتك الأولى لكل ما يحتاجه منزلك من أدوات ومفروشات عالية الجودة بأسعار تنافسية. نحرص على تقديم أفضل المنتجات المنزلية المتنوعة لتلبية احتياجات كل أسرة.",
             },
             {
               icon: "🎯",

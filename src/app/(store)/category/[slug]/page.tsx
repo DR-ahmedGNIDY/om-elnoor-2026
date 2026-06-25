@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
   const url  = `${BASE}/category/${slug}`;
-  const desc = `تصفح منتجات قسم ${category.name} في أم النور للأدوات المنزلية — منفلوط، أسيوط`;
+  const desc = `تصفح منتجات قسم ${category.name} في كوكي هوم — منفلوط، أسيوط`;
 
   return {
     title:       category.name,
@@ -33,16 +33,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       type:        "website",
       locale:      "ar_EG",
       url,
-      title:       `${category.name} | أم النور للأدوات المنزلية`,
+      title:       `${category.name} | كوكي هوم`,
       description: desc,
-      siteName:    "أم النور للأدوات المنزلية",
+      siteName:    "كوكي هوم",
       images:      category.imageUrl
         ? [{ url: category.imageUrl, width: 1200, height: 630, alt: category.name }]
         : undefined,
     },
     twitter: {
       card:        "summary_large_image",
-      title:       `${category.name} | أم النور للأدوات المنزلية`,
+      title:       `${category.name} | كوكي هوم`,
       description: desc,
       images:      category.imageUrl ? [category.imageUrl] : undefined,
     },

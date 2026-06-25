@@ -27,7 +27,7 @@ function waBase(number: string): string {
  *
  * Format:
  * ─────────────────────────
- * 🏠 أم النور للأدوات المنزلية
+ * 🏠 كوكي هوم
  *
  * السلام عليكم 👋
  * أريد طلب المنتجات التالية:
@@ -50,7 +50,7 @@ export function buildCartMessage(items: CartItem[]): string {
   if (items.length === 0) return "";
 
   const lines: string[] = [
-    "🏠 أم النور للأدوات المنزلية",
+    "🏠 كوكي هوم",
     "",
     "السلام عليكم 👋",
     "أريد طلب المنتجات التالية:",
@@ -86,7 +86,7 @@ export function buildCartMessage(items: CartItem[]): string {
  *
  * Format:
  * ─────────────────────────
- * 🏠 أم النور للأدوات المنزلية
+ * 🏠 كوكي هوم
  *
  * السلام عليكم 👋
  * أريد الاستفسار عن:
@@ -102,7 +102,7 @@ export function buildProductInquiryMessage(
 ): string {
   const price = effectivePrice(product);
   return [
-    "🏠 أم النور للأدوات المنزلية",
+    "🏠 كوكي هوم",
     "",
     "السلام عليكم 👋",
     "أريد الاستفسار عن:",

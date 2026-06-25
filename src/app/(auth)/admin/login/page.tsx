@@ -51,7 +51,7 @@ export default async function AdminLoginPage() {
             <div className="mx-auto mb-4 w-20 h-20 rounded-2xl bg-white/15 flex items-center justify-center overflow-hidden">
               <Image
                 src="/images/logo.png"
-                alt="أم النور"
+                alt="كوكي هوم"
                 width={72}
                 height={72}
                 className="object-contain"
@@ -60,7 +60,7 @@ export default async function AdminLoginPage() {
             </div>
 
             <h1 className="font-cairo font-black text-2xl text-white leading-snug">
-              أم النور
+              كوكي هوم
             </h1>
 
             <p className="font-cairo text-white/70 text-sm mt-1">

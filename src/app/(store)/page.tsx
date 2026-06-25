@@ -19,24 +19,24 @@ const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 const DEFAULT_OG_IMAGE = `${BASE}/images/logo.png`;
 
 export const metadata: Metadata = {
-  title: "أم النور للأدوات المنزلية — كل احتياجات منزلك في مكان واحد",
+  title: "كوكي هوم — كل ما يحتاجه منزلك",
   description:
-    "أفضل الأدوات المنزلية بأسعار مناسبة في منفلوط، أسيوط — أطقم حلل، أدوات مطبخ، مفروشات، وأكثر.",
+    "كل ما يحتاجه منزلك... أدوات منزلية عصرية، أدوات مطبخ، تخزين وتنظيم، مفروشات، وإكسسوارات منزلية بأفضل جودة وأفضل الأسعار.",
   alternates: { canonical: BASE },
   openGraph: {
     type:        "website",
     locale:      "ar_EG",
     url:         BASE,
-    siteName:    "أم النور للأدوات المنزلية",
-    title:       "أم النور للأدوات المنزلية — كل احتياجات منزلك في مكان واحد",
-    description: "أفضل الأدوات المنزلية بأسعار مناسبة في منفلوط، أسيوط",
+    siteName:    "كوكي هوم",
+    title:       "كوكي هوم — كل ما يحتاجه منزلك",
+    description: "كل ما يحتاجه منزلك... أدوات منزلية عصرية وإكسسوارات منزلية بأفضل جودة وأفضل الأسعار",
     images: [{ url: DEFAULT_OG_IMAGE, width: 1200, height: 630,
-               alt:  "أم النور للأدوات المنزلية" }],
+               alt:  "كوكي هوم" }],
   },
   twitter: {
     card:        "summary_large_image",
-    title:       "أم النور للأدوات المنزلية",
-    description: "كل احتياجات منزلك في مكان واحد — منفلوط، أسيوط",
+    title:       "كوكي هوم",
+    description: "كل ما يحتاجه منزلك... أدوات منزلية عصرية وإكسسوارات منزلية",
     images:      [DEFAULT_OG_IMAGE],
   },
 };
@@ -211,7 +211,7 @@ function HeroSection() {
     <section
   className="relative overflow-hidden bg-cover bg-center bg-no-repeat"
   style={{
-    backgroundImage: "url('/images/banner.webp')",
+    backgroundImage: "url('/images/banner.png')",
   }}
 >
       <div aria-hidden className="absolute inset-0 pointer-events-none">
@@ -232,8 +232,8 @@ function HeroSection() {
 
         <h1 className="font-cairo font-black text-white mb-4"
           style={{ fontSize: "clamp(2rem,5vw,3.5rem)", lineHeight: 1.25 }}>
-          أم النور<br />
-          <span className="text-gold">للأدوات المنزلية</span>
+          كوكي هوم<br />
+          <span className="text-gold">COKIE HOME</span>
         </h1>
 
         <p className="font-cairo text-white/80 text-lg mb-8 max-w-xl mx-auto">
