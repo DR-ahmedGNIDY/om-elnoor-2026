@@ -308,6 +308,39 @@ a {
 }
 
 /* ─────────────────────────────────────────
+   Category marquee (infinite RTL scroll)
+   --marquee-distance is a JS-measured pixel value
+   (exactly the width of one repeated category set,
+   via ResizeObserver in CategoryMarquee.tsx) — never
+   a percentage. Percentage-valued translateX inside a
+   running keyframe animation is unreliable in Chromium:
+   the compositor-painted position can drift from the
+   resolved computed style, which shows up as the track
+   scrolling far past where the math intends, leaving a
+   large blank gap. A concrete pixel distance has no such
+   ambiguity. translate3d promotes the track to its own
+   GPU layer for a jank-free, compositor-only animation
+   that keeps running smoothly regardless of main-thread
+   load.
+
+   Deliberately NOT applied via a class here — the
+   animation shorthand is only ever set inline by
+   CategoryMarquee.tsx, once --marquee-distance is known
+   from a real measurement. Auto-applying it via a class
+   would start the animation immediately on paint using
+   the CSS fallback default, and then require changing the
+   distance under it once JS measures the real value —
+   mutating a custom property that an *already-running*
+   compositor animation depends on is exactly what caused
+   the compositor-painted position to desync from the
+   intended one, which showed up as a large blank gap.
+   ───────────────────────────────────────── */
+@keyframes cokieMarqueeRTL {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(var(--marquee-distance, -1200px), 0, 0); }
+}
+
+/* ─────────────────────────────────────────
    Print styles
    ───────────────────────────────────────── */
 @media print {

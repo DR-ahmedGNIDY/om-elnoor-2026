@@ -12,6 +12,7 @@ import { calcDiscountPercent } from "@/lib/utils";
 import { buildOrganizationLD, buildLocalBusinessLD, buildWebSiteLD } from "@/lib/metadata";
 import { ProductGrid } from "@/components/store/ProductGrid";
 import HomeBanner from "@/components/store/HomeBanner";
+import CategoryMarquee from "@/components/store/CategoryMarquee";
 import type { ProductWithCategoryDTO, CategoryDTO } from "@/types";
 
 const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
@@ -153,9 +154,9 @@ export default async function HomePage() {
 <HeroSection />
 
 
-{/* Category quick-nav strip */}
+{/* Category quick-nav carousel */}
       {data.categories.length > 0 && (
-        <CategoryStrip categories={data.categories} />
+        <CategoryMarquee categories={data.categories} />
       )}
 
       {/* الأكثر طلباً */}
@@ -220,7 +221,7 @@ function HeroSection() {
         className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(rgba(6,25,56,.65), rgba(6,25,56,.65))",
+            "linear-gradient(rgba(6,25,56,.4), rgba(6,25,56,.4))",
         }}
       />
 
@@ -266,26 +267,6 @@ function HeroSection() {
         </div>
       </div>
     </section>
-  );
-}
-
-function CategoryStrip({ categories }: { categories: CategoryDTO[] }) {
-  return (
-    <div className="bg-white border-b border-gray-100 py-4 overflow-x-auto">
-      <div className="container-store flex items-center gap-3 min-w-max sm:min-w-0 flex-nowrap sm:flex-wrap">
-        {categories.map((cat) => (
-          <Link
-            key={cat.id}
-            href={`/category/${cat.slug}`}
-            className="flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-xl border-2 border-gray-100 hover:border-primary hover:bg-primary/5 transition-all group"
-          >
-            <span className="font-cairo font-bold text-sm text-brand-text group-hover:text-primary transition-colors">
-              {cat.name}
-            </span>
-          </Link>
-        ))}
-      </div>
-    </div>
   );
 }
 
