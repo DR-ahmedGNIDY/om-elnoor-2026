@@ -65,6 +65,7 @@ export default function CategoryMarquee({ categories }: { categories: CategoryDT
   const dragStartX    = useRef(0);
   const dragStartPx   = useRef(0);
   const wasDragged    = useRef(false);
+  const captured      = useRef(false);
   const reducedMotion = useRef(false);
 
   const [copies, setCopies] = useState(INITIAL_COPIES);
@@ -179,6 +180,7 @@ export default function CategoryMarquee({ categories }: { categories: CategoryDT
 
     dragging.current = true;
     wasDragged.current = false;
+    captured.current = false;
     dragStartX.current = e.clientX;
 
     // Freeze the animation at its exact current visual position,
@@ -189,7 +191,13 @@ export default function CategoryMarquee({ categories }: { categories: CategoryDT
     track.style.animation = "none";
     track.style.transform = `translate3d(${px}px,0,0)`;
 
-    e.currentTarget.setPointerCapture(e.pointerId);
+    // NOTE: pointer capture is intentionally NOT taken here. Once an
+    // element has pointer capture, the browser dispatches the ensuing
+    // `click` to the capturing element instead of the element under the
+    // pointer — which would steal every plain click from the card's
+    // <Link> and silently break navigation. We only capture once an
+    // actual drag is detected (see onPointerMove), so a simple tap/click
+    // always reaches the anchor and navigates.
     e.currentTarget.style.cursor = "grabbing";
   };
 
@@ -198,7 +206,21 @@ export default function CategoryMarquee({ categories }: { categories: CategoryDT
     if (!track || !dragging.current) return;
 
     const dx = e.clientX - dragStartX.current;
-    if (Math.abs(dx) > DRAG_THRESHOLD) wasDragged.current = true;
+    if (Math.abs(dx) > DRAG_THRESHOLD) {
+      wasDragged.current = true;
+      // Only now that a real drag is underway do we capture the pointer,
+      // so drag tracking survives the pointer leaving the element. A plain
+      // click never reaches this branch, so its `click` still targets the
+      // card's <Link> and navigation works.
+      if (!captured.current) {
+        try {
+          e.currentTarget.setPointerCapture(e.pointerId);
+          captured.current = true;
+        } catch {
+          /* pointer may already be gone; ignore */
+        }
+      }
+    }
 
     const w = oneSetWidthPx.current;
     let next = dragStartPx.current + dx;
@@ -213,6 +235,14 @@ export default function CategoryMarquee({ categories }: { categories: CategoryDT
     const track = trackRef.current;
     dragging.current = false;
     e.currentTarget.style.cursor = "grab";
+    if (captured.current) {
+      try {
+        e.currentTarget.releasePointerCapture(e.pointerId);
+      } catch {
+        /* not captured / already released; ignore */
+      }
+      captured.current = false;
+    }
     if (!track || reducedMotion.current) return;
 
     // Resume the keyframe animation from the exact spot the drag
@@ -333,8 +363,8 @@ function CategoryCard({ category, index }: { category: CategoryDTO; index: numbe
         </div>
       )}
 
-      {/* Overlay gradient */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#0B1C33]/55 via-[#0B1C33]/10 to-transparent" />
+      {/* Overlay gradient — decorative only, must never intercept clicks */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0B1C33]/55 via-[#0B1C33]/10 to-transparent" />
 
       {/* Gold ring accent on hover */}
       <div className="pointer-events-none absolute inset-0 rounded-[24px] ring-1 ring-white/10 transition-all duration-300 ease-out group-hover:ring-2 group-hover:ring-gold/70" />
