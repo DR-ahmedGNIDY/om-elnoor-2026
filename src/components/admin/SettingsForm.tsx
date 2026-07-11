@@ -9,6 +9,7 @@
 
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { FaTelegramPlane } from "react-icons/fa";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { settingsSchema } from "@/lib/validations";
 import { cn } from "@/lib/utils";
@@ -37,6 +38,7 @@ export function SettingsForm({ initial }: SettingsFormProps) {
       facebookUrl:    initial.facebookUrl,
       instagramUrl:   initial.instagramUrl,
       tiktokUrl:      initial.tiktokUrl,
+      telegramUrl:    initial.telegramUrl,
     },
   });
 
@@ -201,6 +203,17 @@ export function SettingsForm({ initial }: SettingsFormProps) {
           registration={register("tiktokUrl")}
           error={errors.tiktokUrl?.message}
         />
+
+        {/* Telegram */}
+        <SocialField
+          id="s-telegram"
+          label="تليجرام"
+          icon={<FaTelegramPlane className="text-[#229ED9]" />}
+          placeholder="https://t.me/username"
+          disabled={isSaving}
+          registration={register("telegramUrl")}
+          error={errors.telegramUrl?.message}
+        />
       </section>
 
       {/* ── Submit ───────────────────────────────────────────── */}
@@ -254,7 +267,7 @@ function SocialField({
 }: {
   id:           string;
   label:        string;
-  icon:         string;
+  icon:         React.ReactNode;
   placeholder:  string;
   disabled:     boolean;
   registration: ReturnType<ReturnType<typeof useForm<SettingsFormValues>>["register"]>;

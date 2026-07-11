@@ -31,6 +31,7 @@ async function main() {
       facebookUrl:    "",
       instagramUrl:   "",
       tiktokUrl:      "",
+      telegramUrl:    "",
     },
   });
   console.log("✅ Settings");

@@ -28,6 +28,7 @@ export default async function AdminSettingsPage() {
       facebookUrl:    "",
       instagramUrl:   "",
       tiktokUrl:      "",
+      telegramUrl:    "",
     },
   });
 
@@ -37,6 +38,7 @@ export default async function AdminSettingsPage() {
     facebookUrl:    raw.facebookUrl,
     instagramUrl:   raw.instagramUrl,
     tiktokUrl:      raw.tiktokUrl,
+    telegramUrl:    raw.telegramUrl,
     updatedAt:      raw.updatedAt.toISOString(),
   };
 

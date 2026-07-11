@@ -24,6 +24,7 @@ function toSettingsDTO(s: {
   facebookUrl:    string;
   instagramUrl:   string;
   tiktokUrl:      string;
+  telegramUrl:    string;
   updatedAt:      Date;
 }): SettingsDTO {
   return {
@@ -32,6 +33,7 @@ function toSettingsDTO(s: {
     facebookUrl:    s.facebookUrl,
     instagramUrl:   s.instagramUrl,
     tiktokUrl:      s.tiktokUrl,
+    telegramUrl:    s.telegramUrl,
     updatedAt:      s.updatedAt.toISOString(),
   };
 }
@@ -50,6 +52,7 @@ export async function GET() {
         facebookUrl:    "",
         instagramUrl:   "",
         tiktokUrl:      "",
+        telegramUrl:    "",
       },
     });
 
@@ -74,17 +77,18 @@ export async function PUT(req: NextRequest) {
       return apiError("بيانات غير صالحة", 422, fieldErrors);
     }
 
-    const { whatsappNumber, facebookUrl, instagramUrl, tiktokUrl } = parsed.data;
+    const { whatsappNumber, facebookUrl, instagramUrl, tiktokUrl, telegramUrl } = parsed.data;
 
     const settings = await prisma.settings.upsert({
       where:  { id: SETTINGS_ID },
-      update: { whatsappNumber, facebookUrl, instagramUrl, tiktokUrl },
+      update: { whatsappNumber, facebookUrl, instagramUrl, tiktokUrl, telegramUrl },
       create: {
         id: SETTINGS_ID,
         whatsappNumber,
         facebookUrl,
         instagramUrl,
         tiktokUrl,
+        telegramUrl,
       },
     });
 

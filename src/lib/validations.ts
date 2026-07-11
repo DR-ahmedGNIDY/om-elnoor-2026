@@ -120,6 +120,19 @@ export const settingsSchema = z.object({
   facebookUrl: urlOrEmpty.default(""),
   instagramUrl: urlOrEmpty.default(""),
   tiktokUrl:   urlOrEmpty.default(""),
+
+  // Optional — but when present must be a real Telegram link
+  // (t.me / telegram.me / telegram.dog). Empty string clears it.
+  telegramUrl: z
+    .string()
+    .trim()
+    .refine(
+      (v) =>
+        v === "" ||
+        /^https?:\/\/(www\.)?(t\.me|telegram\.me|telegram\.dog)\/.+/i.test(v),
+      { message: "يجب أن يكون رابط تليجرام صحيحاً (مثال: https://t.me/username)" }
+    )
+    .default(""),
 });
 
 export type SettingsInput = z.infer<typeof settingsSchema>;

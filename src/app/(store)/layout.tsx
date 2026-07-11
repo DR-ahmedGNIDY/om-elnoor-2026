@@ -31,6 +31,7 @@ async function getLayoutData(): Promise<{
         facebookUrl:    "",
         instagramUrl:   "",
         tiktokUrl:      "",
+        telegramUrl:    "",
       },
     }),
   ]);
@@ -50,6 +51,7 @@ async function getLayoutData(): Promise<{
     facebookUrl:    rawSettings.facebookUrl,
     instagramUrl:   rawSettings.instagramUrl,
     tiktokUrl:      rawSettings.tiktokUrl,
+    telegramUrl:    rawSettings.telegramUrl,
     updatedAt:      rawSettings.updatedAt.toISOString(),
   };
 

@@ -5,6 +5,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { FaTelegramPlane } from "react-icons/fa";
 import type { CategoryDTO, SettingsDTO } from "@/types";
 
 interface StoreFooterProps {
@@ -100,6 +101,14 @@ export function StoreFooter({ settings, categories }: StoreFooterProps) {
                   <a href={settings.tiktokUrl} target="_blank" rel="noopener noreferrer"
                     className="flex items-center gap-2 font-cairo text-sm text-white/60 hover:text-white transition-colors">
                     <span>🎵</span> تيك توك
+                  </a>
+                </li>
+              )}
+              {settings.telegramUrl && (
+                <li>
+                  <a href={settings.telegramUrl} target="_blank" rel="noopener noreferrer"
+                    className="flex items-center gap-2 font-cairo text-sm text-white/60 hover:text-white transition-colors">
+                    <span className="text-[#229ED9]"><FaTelegramPlane /></span> تليجرام
                   </a>
                 </li>
               )}

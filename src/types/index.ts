@@ -67,6 +67,7 @@ export type SettingsDTO = {
   facebookUrl:    string;
   instagramUrl:   string;
   tiktokUrl:      string;
+  telegramUrl:    string;
   updatedAt:      string;
 };
 
@@ -119,6 +120,7 @@ export type SettingsFormValues = {
   facebookUrl:    string;
   instagramUrl:   string;
   tiktokUrl:      string;
+  telegramUrl:    string;
 };
 
 export type LoginFormValues = {

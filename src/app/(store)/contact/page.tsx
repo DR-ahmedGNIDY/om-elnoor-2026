@@ -5,6 +5,7 @@
 // ─────────────────────────────────────────────────────────────
 
 import type { Metadata } from "next";
+import { FaTelegramPlane } from "react-icons/fa";
 import { prisma } from "@/lib/prisma";
 
 export const metadata: Metadata = {
@@ -18,7 +19,7 @@ export default async function ContactPage() {
     where:  { id: "main" },
     update: {},
     create: { id: "main", whatsappNumber: "+201012506517",
-              facebookUrl: "", instagramUrl: "", tiktokUrl: "" },
+              facebookUrl: "", instagramUrl: "", tiktokUrl: "", telegramUrl: "" },
   });
 
   const wa = settings.whatsappNumber.replace(/\D/g, "");
@@ -59,6 +60,15 @@ export default async function ContactPage() {
       value: "تابعنا على تيك توك",
       cta:   "زيارة الحساب",
       show:  !!settings.tiktokUrl,
+    },
+    {
+      href:  settings.telegramUrl,
+      icon:  <FaTelegramPlane className="text-[#229ED9]" />,
+      color: "#e3f2fd",
+      title: "تليجرام",
+      value: "تابعنا على تليجرام",
+      cta:   "زيارة القناة",
+      show:  !!settings.telegramUrl,
     },
     {
       href:  null,
