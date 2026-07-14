@@ -69,9 +69,9 @@ export function buildCartMessage(items: CartItem[]): string {
   if (items.length === 0) return "";
 
   const lines: string[] = [
-    "🏠 كوكي هوم",
+    "كوكي هوم",
     "",
-    "السلام عليكم 👋",
+    "السلام عليكم",
     "أريد طلب المنتجات التالية:",
     "",
     "المنتجات:",
@@ -85,8 +85,8 @@ export function buildCartMessage(items: CartItem[]): string {
     const lineTotal = unitPrice * quantity;
     total += lineTotal;
 
-    lines.push(`🛍️ ${product.name}`);
-    lines.push(`   🔗 ${productUrl(product.slug)}`);
+    lines.push(`• ${product.name}`);
+    lines.push(`   الرابط: ${productUrl(product.slug)}`);
     lines.push(`   الكمية: ${quantity}`);
     lines.push(`   السعر:  ${formatPrice(lineTotal)}`);
     lines.push("───────────────────");
@@ -96,7 +96,7 @@ export function buildCartMessage(items: CartItem[]): string {
   lines.push("");
   lines.push(`الإجمالي: ${formatPrice(total)}`);
   lines.push("");
-  lines.push("شكراً لكم 🙏");
+  lines.push("شكراً لكم");
 
   return stripBidiMarks(lines.join("\n"));
 }
@@ -122,16 +122,16 @@ export function buildProductInquiryMessage(
 ): string {
   const price = effectivePrice(product);
   const message = [
-    "🏠 كوكي هوم",
+    "كوكي هوم",
     "",
-    "السلام عليكم 👋",
+    "السلام عليكم",
     "أريد الاستفسار عن:",
     "",
-    `🛍️ ${product.name}`,
-    `🔗 ${productUrl(product.slug)}`,
-    `💰 السعر: ${formatPrice(price)}`,
+    `• ${product.name}`,
+    `الرابط: ${productUrl(product.slug)}`,
+    `السعر: ${formatPrice(price)}`,
     "",
-    "شكراً لكم 🙏",
+    "شكراً لكم",
   ].join("\n");
   return stripBidiMarks(message);
 }
