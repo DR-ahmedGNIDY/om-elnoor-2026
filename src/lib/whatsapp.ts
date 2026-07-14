@@ -10,6 +10,9 @@ import type { CartItem, ProductWithCategoryDTO } from "@/types";
 
 // ── Helpers ───────────────────────────────────────────────────
 
+/** Site base URL used to build public product links. */
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+
 /** Strips all non-numeric chars from a phone number. */
 function cleanNumber(raw: string): string {
   return raw.replace(/\D/g, "");
@@ -18,6 +21,11 @@ function cleanNumber(raw: string): string {
 /** Base wa.me URL for a cleaned number. */
 function waBase(number: string): string {
   return `https://wa.me/${cleanNumber(number)}`;
+}
+
+/** Public URL for a product detail page. */
+function productUrl(slug: string): string {
+  return `${SITE_URL.replace(/\/$/, "")}/product/${slug}`;
 }
 
 // ── Message builders ──────────────────────────────────────────
@@ -67,6 +75,7 @@ export function buildCartMessage(items: CartItem[]): string {
     total += lineTotal;
 
     lines.push(`🛍️ ${product.name}`);
+    lines.push(`   🔗 ${productUrl(product.slug)}`);
     lines.push(`   الكمية: ${quantity}`);
     lines.push(`   السعر:  ${formatPrice(lineTotal)}`);
     lines.push("───────────────────");
@@ -98,7 +107,7 @@ export function buildCartMessage(items: CartItem[]): string {
  * ─────────────────────────
  */
 export function buildProductInquiryMessage(
-  product: Pick<ProductWithCategoryDTO, "name" | "originalPrice" | "discountPrice">
+  product: Pick<ProductWithCategoryDTO, "name" | "slug" | "originalPrice" | "discountPrice">
 ): string {
   const price = effectivePrice(product);
   return [
@@ -108,6 +117,7 @@ export function buildProductInquiryMessage(
     "أريد الاستفسار عن:",
     "",
     `🛍️ ${product.name}`,
+    `🔗 ${productUrl(product.slug)}`,
     `💰 السعر: ${formatPrice(price)}`,
     "",
     "شكراً لكم 🙏",
@@ -134,7 +144,7 @@ export function buildCartWhatsAppUrl(
  */
 export function buildProductWhatsAppUrl(
   whatsappNumber: string,
-  product: Pick<ProductWithCategoryDTO, "name" | "originalPrice" | "discountPrice">
+  product: Pick<ProductWithCategoryDTO, "name" | "slug" | "originalPrice" | "discountPrice">
 ): string {
   const message = buildProductInquiryMessage(product);
   return `${waBase(whatsappNumber)}?text=${encodeURIComponent(message)}`;

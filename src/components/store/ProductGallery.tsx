@@ -22,13 +22,13 @@ export function ProductGallery({ images, name }: ProductGalleryProps) {
   return (
     <div className="space-y-3">
       {/* Main image */}
-      <div className="relative aspect-square rounded-2xl overflow-hidden bg-gray-100 shadow-card">
+      <div className="relative aspect-square rounded-2xl overflow-hidden bg-white shadow-card">
         <Image
           src={src}
           alt={name}
           fill
           sizes="(max-width:1024px) 100vw, 50vw"
-          className="object-cover"
+          className="object-contain"
           priority
           unoptimized={src.startsWith("/")}
         />
