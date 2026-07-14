@@ -28,6 +28,17 @@ function productUrl(slug: string): string {
   return `${SITE_URL.replace(/\/$/, "")}/product/${slug}`;
 }
 
+/**
+ * Removes invisible bidirectional / directional control characters that
+ * Intl formatting inserts (LRM, RLM, ALM, isolates, embeddings). WhatsApp
+ * renders these as literal "?" marks, so we strip them from WA messages.
+ */
+function stripBidiMarks(text: string): string {
+  // U+200E/200F (LRM/RLM), U+061C (ALM), U+202A–202E (embeddings/overrides),
+  // U+2066–2069 (isolates).
+  return text.replace(/[‎‏؜‪-‮⁦-⁩]/g, "");
+}
+
 // ── Message builders ──────────────────────────────────────────
 
 /**
@@ -87,7 +98,7 @@ export function buildCartMessage(items: CartItem[]): string {
   lines.push("");
   lines.push("شكراً لكم 🙏");
 
-  return lines.join("\n");
+  return stripBidiMarks(lines.join("\n"));
 }
 
 /**
@@ -110,7 +121,7 @@ export function buildProductInquiryMessage(
   product: Pick<ProductWithCategoryDTO, "name" | "slug" | "originalPrice" | "discountPrice">
 ): string {
   const price = effectivePrice(product);
-  return [
+  const message = [
     "🏠 كوكي هوم",
     "",
     "السلام عليكم 👋",
@@ -122,6 +133,7 @@ export function buildProductInquiryMessage(
     "",
     "شكراً لكم 🙏",
   ].join("\n");
+  return stripBidiMarks(message);
 }
 
 // ── URL generators ────────────────────────────────────────────
