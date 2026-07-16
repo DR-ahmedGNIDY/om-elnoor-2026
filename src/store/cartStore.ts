@@ -50,7 +50,7 @@ export const useCartStore = create<CartState>()(
             items,
             count:    items.reduce((s, i) => s + i.quantity, 0),
             subtotal: items.reduce(
-              (s, i) => s + effectivePrice(i.product) * i.quantity,
+              (s, i) => s + (effectivePrice(i.product) ?? 0) * i.quantity,
               0
             ),
           };
@@ -66,7 +66,7 @@ export const useCartStore = create<CartState>()(
             items,
             count:    items.reduce((s, i) => s + i.quantity, 0),
             subtotal: items.reduce(
-              (s, i) => s + effectivePrice(i.product) * i.quantity,
+              (s, i) => s + (effectivePrice(i.product) ?? 0) * i.quantity,
               0
             ),
           };
@@ -86,7 +86,7 @@ export const useCartStore = create<CartState>()(
             items,
             count:    items.reduce((s, i) => s + i.quantity, 0),
             subtotal: items.reduce(
-              (s, i) => s + effectivePrice(i.product) * i.quantity,
+              (s, i) => s + (effectivePrice(i.product) ?? 0) * i.quantity,
               0
             ),
           };

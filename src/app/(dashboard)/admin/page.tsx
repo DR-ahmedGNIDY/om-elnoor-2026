@@ -149,10 +149,12 @@ export default async function AdminDashboardPage() {
                 </div>
 
                 <div className="text-end flex-shrink-0">
-                  <p className="font-cairo font-black text-sm text-primary">
-                    {product.originalPrice.toLocaleString("ar-EG")} ج.م
-                  </p>
-                  {product.discountPrice && (
+                  {product.originalPrice !== null && (
+                    <p className="font-cairo font-black text-sm text-primary">
+                      {product.originalPrice.toLocaleString("ar-EG")} ج.م
+                    </p>
+                  )}
+                  {product.discountPrice !== null && (
                     <p className="font-cairo text-xs text-green-600 font-bold mt-0.5">
                       خصم {product.discountPrice.toLocaleString("ar-EG")} ج.م
                     </p>

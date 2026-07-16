@@ -79,8 +79,10 @@ model Product {
   description   String   @default("")
   categoryId    String   @db.ObjectId
   images        String[]                  // ordered list; first is the cover image
-  originalPrice Float
+  originalPrice Float?                    // null = no price set
   discountPrice Float?                    // null = no active discount
+                                          // Both are optional and independent: a product may have
+                                          // neither, either, or both. When both are set,
                                           // discountPercent is derived: (1 - discountPrice/originalPrice) * 100
   available     Boolean  @default(true)
   isFeatured    Boolean  @default(false)

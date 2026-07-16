@@ -44,12 +44,6 @@ export async function POST(req: NextRequest) {
   try {
     const cfg = cloudinary.config();
 
-    console.log("Cloudinary Config:", {
-      cloud_name: cfg.cloud_name,
-      hasApiKey: !!cfg.api_key,
-      hasSecret: !!cfg.api_secret,
-    });
-
     if (!cfg.cloud_name || !cfg.api_key || !cfg.api_secret) {
       return apiError("Cloudinary غير مهيأ", 503);
     }

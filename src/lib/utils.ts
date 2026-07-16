@@ -38,21 +38,30 @@ export function formatPrice(amount: number): string {
  * discountPercent is never stored — always derived.
  */
 export function calcDiscountPercent(
-  originalPrice: number,
+  originalPrice: number | null,
   discountPrice: number | null
 ): number {
-  if (!discountPrice || discountPrice >= originalPrice) return 0;
+  if (!originalPrice || !discountPrice || discountPrice >= originalPrice) return 0;
   return Math.round(((originalPrice - discountPrice) / originalPrice) * 100);
 }
 
 /**
- * Returns the effective selling price (discountPrice ?? originalPrice).
+ * Returns the effective selling price (discountPrice ?? originalPrice),
+ * or null when the product has no price set at all.
  */
 export function effectivePrice(product: {
-  originalPrice: number;
+  originalPrice: number | null;
   discountPrice: number | null;
-}): number {
+}): number | null {
   return product.discountPrice ?? product.originalPrice;
+}
+
+/** True when the product has at least one price worth displaying. */
+export function hasPrice(product: {
+  originalPrice: number | null;
+  discountPrice: number | null;
+}): boolean {
+  return effectivePrice(product) !== null;
 }
 
 // ── Slug generation ───────────────────────────────────────────

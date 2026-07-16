@@ -8,11 +8,28 @@ import { z } from "zod";
 
 // ── Helpers ───────────────────────────────────────────────────
 
-/** Egyptian pound amount — non-negative number up to 999,999 */
-const egpAmount = z
-  .number({ invalid_type_error: "يجب أن يكون السعر رقماً" })
-  .nonnegative("السعر يجب أن يكون صفراً أو أكثر")
-  .max(999_999, "السعر كبير جداً");
+/**
+ * Optional Egyptian pound amount.
+ *
+ * Prices are fully optional: null, undefined, an empty string (empty form
+ * field) and NaN (an empty `valueAsNumber` input) all normalise to null.
+ * A supplied value must be a non-negative number up to 999,999 — zero is
+ * accepted when entered intentionally.
+ */
+const optionalEgpAmount = z.preprocess(
+  (v) =>
+    v === "" ||
+    v === null ||
+    v === undefined ||
+    (typeof v === "number" && Number.isNaN(v))
+      ? null
+      : v,
+  z
+    .number({ invalid_type_error: "يجب أن يكون السعر رقماً" })
+    .nonnegative("السعر لا يمكن أن يكون سالباً")
+    .max(999_999, "السعر كبير جداً")
+    .nullable()
+);
 
 /** URL string (relative /uploads/... or absolute https://...) — or empty */
 const urlOrEmpty = z
@@ -80,22 +97,20 @@ export const productSchema = z
       .array(z.string().url("رابط الصورة غير صالح"))
       .default([]),
 
-    originalPrice: egpAmount.min(0.01, "السعر الأصلي مطلوب"),
+    originalPrice: optionalEgpAmount,
 
-    discountPrice: z
-      .number({ invalid_type_error: "يجب أن يكون سعر الخصم رقماً" })
-      .nonnegative("سعر الخصم يجب أن يكون صفراً أو أكثر")
-      .max(999_999, "سعر الخصم كبير جداً")
-      .nullable()
-      .default(null),
+    discountPrice: optionalEgpAmount,
 
     available:  z.boolean().default(true),
     isFeatured: z.boolean().default(false),
     isOffer:    z.boolean().default(false),
   })
+  // Only meaningful when both prices are set. A lone discount price is the
+  // selling price, so it has nothing to be cheaper than.
   .refine(
     (data) =>
       data.discountPrice === null ||
+      data.originalPrice === null ||
       data.discountPrice < data.originalPrice,
     {
       message: "سعر الخصم يجب أن يكون أقل من السعر الأصلي",

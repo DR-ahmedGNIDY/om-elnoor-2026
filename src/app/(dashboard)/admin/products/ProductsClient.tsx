@@ -11,7 +11,7 @@ import Image from "next/image";
 import { ProductForm    } from "@/components/admin/ProductForm";
 import { ConfirmDialog  } from "@/components/admin/ConfirmDialog";
 import { Modal          } from "@/components/admin/Modal";
-import { formatPrice, formatDateAr, cn } from "@/lib/utils";
+import { formatPrice, formatDateAr, effectivePrice, cn } from "@/lib/utils";
 import type { ProductWithCategoryDTO, CategoryWithCountDTO } from "@/types";
 
 interface Props {
@@ -272,6 +272,8 @@ function ProductRow({
   onEdit:   () => void;
   onDelete: () => void;
 }) {
+  const price = effectivePrice(p);
+
   return (
     <tr className="hover:bg-gray-50/60 transition-colors">
       {/* Product */}
@@ -300,13 +302,19 @@ function ProductRow({
 
       {/* Price */}
       <td className="px-4 py-3 text-center">
-        <p className="font-cairo font-black text-sm text-primary">
-          {formatPrice(p.discountPrice ?? p.originalPrice)}
-        </p>
-        {p.discountPercent > 0 && (
-          <p className="font-cairo text-xs text-brand-text/40 line-through mt-0.5">
-            {formatPrice(p.originalPrice)}
-          </p>
+        {price !== null ? (
+          <>
+            <p className="font-cairo font-black text-sm text-primary">
+              {formatPrice(price)}
+            </p>
+            {p.discountPercent > 0 && p.originalPrice !== null && (
+              <p className="font-cairo text-xs text-brand-text/40 line-through mt-0.5">
+                {formatPrice(p.originalPrice)}
+              </p>
+            )}
+          </>
+        ) : (
+          <span className="font-cairo text-sm text-brand-text/30">—</span>
         )}
       </td>
 
@@ -350,6 +358,8 @@ function ProductCard({
   onEdit:   () => void;
   onDelete: () => void;
 }) {
+  const price = effectivePrice(p);
+
   return (
     <div className="flex items-center gap-3 px-4 py-4">
       <div className="w-14 h-14 rounded-xl overflow-hidden bg-gray-100 flex-shrink-0 flex items-center justify-center text-2xl">
@@ -362,9 +372,11 @@ function ProductCard({
         <p className="font-cairo font-bold text-sm text-brand-text truncate">{p.name}</p>
         <p className="font-cairo text-xs text-brand-text/40 mt-0.5">{p.category.name}</p>
         <div className="flex items-center gap-2 mt-1.5 flex-wrap">
-          <span className="font-cairo font-black text-sm text-primary">
-            {formatPrice(p.discountPrice ?? p.originalPrice)}
-          </span>
+          {price !== null && (
+            <span className="font-cairo font-black text-sm text-primary">
+              {formatPrice(price)}
+            </span>
+          )}
           <span className={cn("badge text-[10px]", p.available ? "badge-success" : "badge-danger")}>
             {p.available ? "متوفر" : "غير متوفر"}
           </span>

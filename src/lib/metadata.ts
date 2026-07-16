@@ -59,7 +59,9 @@ export function buildProductMetadata(product: ProductWithCategoryDTO): Metadata 
   const image       = product.images[0] ?? LOGO;
   const description =
     product.description ||
-    `${product.name} — ${formatPrice(price)} — ${BRAND}`;
+    (price !== null
+      ? `${product.name} — ${formatPrice(price)} — ${BRAND}`
+      : `${product.name} — ${BRAND}`);
 
   return {
     title:       product.name,
@@ -203,18 +205,24 @@ export function buildProductLD(
       "@type": "Brand",
       name:    BRAND,
     },
-    offers: {
-      "@type":        "Offer",
-      priceCurrency:  "EGP",
-      price:          price.toFixed(2),
-      availability:   product.available
-        ? "https://schema.org/InStock"
-        : "https://schema.org/OutOfStock",
-      seller: {
-        "@type": "Organization",
-        name:    BRAND,
-      },
-    },
+    // An Offer requires a price, so products without one omit the block
+    // rather than advertise a zero price.
+    ...(price !== null
+      ? {
+          offers: {
+            "@type":        "Offer",
+            priceCurrency:  "EGP",
+            price:          price.toFixed(2),
+            availability:   product.available
+              ? "https://schema.org/InStock"
+              : "https://schema.org/OutOfStock",
+            seller: {
+              "@type": "Organization",
+              name:    BRAND,
+            },
+          },
+        }
+      : {}),
   };
 }
 

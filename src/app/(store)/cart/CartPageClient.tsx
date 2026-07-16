@@ -121,9 +121,11 @@ export function CartPageClient() {
 
                         {/* Line total + remove */}
                         <div className="flex items-center gap-3">
-                          <span className="font-cairo font-black text-primary">
-                            {formatPrice(price * quantity)}
-                          </span>
+                          {price !== null && (
+                            <span className="font-cairo font-black text-primary">
+                              {formatPrice(price * quantity)}
+                            </span>
+                          )}
                           <button
                             onClick={() => removeItem(product.id)}
                             className="text-gray-300 hover:text-red-500 transition-colors"
@@ -148,26 +150,33 @@ export function CartPageClient() {
 
                 {/* Line items */}
                 <div className="space-y-2">
-                  {items.map(({ product, quantity }) => (
-                    <div key={product.id} className="flex justify-between gap-2 text-sm">
-                      <span className="font-cairo text-brand-text/60 truncate">
-                        {product.name}
-                        <span className="text-brand-text/40"> × {quantity}</span>
-                      </span>
-                      <span className="font-cairo font-bold text-brand-text flex-shrink-0">
-                        {formatPrice(effectivePrice(product) * quantity)}
-                      </span>
-                    </div>
-                  ))}
+                  {items.map(({ product, quantity }) => {
+                    const linePrice = effectivePrice(product);
+                    return (
+                      <div key={product.id} className="flex justify-between gap-2 text-sm">
+                        <span className="font-cairo text-brand-text/60 truncate">
+                          {product.name}
+                          <span className="text-brand-text/40"> × {quantity}</span>
+                        </span>
+                        {linePrice !== null && (
+                          <span className="font-cairo font-bold text-brand-text flex-shrink-0">
+                            {formatPrice(linePrice * quantity)}
+                          </span>
+                        )}
+                      </div>
+                    );
+                  })}
                 </div>
 
-                {/* Total */}
-                <div className="border-t border-gray-100 pt-4 flex justify-between items-center">
-                  <span className="font-cairo font-bold text-brand-text">الإجمالي</span>
-                  <span className="font-cairo font-black text-2xl text-primary">
-                    {formatPrice(subtotal)}
-                  </span>
-                </div>
+                {/* Total — hidden when nothing in the cart carries a price */}
+                {subtotal > 0 && (
+                  <div className="border-t border-gray-100 pt-4 flex justify-between items-center">
+                    <span className="font-cairo font-bold text-brand-text">الإجمالي</span>
+                    <span className="font-cairo font-black text-2xl text-primary">
+                      {formatPrice(subtotal)}
+                    </span>
+                  </div>
+                )}
 
                 {/* WhatsApp checkout */}
                 <button

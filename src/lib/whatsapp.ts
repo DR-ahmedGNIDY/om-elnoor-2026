@@ -82,20 +82,28 @@ export function buildCartMessage(items: CartItem[]): string {
 
   items.forEach(({ product, quantity }) => {
     const unitPrice = effectivePrice(product);
-    const lineTotal = unitPrice * quantity;
-    total += lineTotal;
 
     lines.push(`• ${product.name}`);
     lines.push(`   الرابط: ${productUrl(product.slug)}`);
     lines.push(`   الكمية: ${quantity}`);
-    lines.push(`   السعر:  ${formatPrice(lineTotal)}`);
+
+    // Products without a price contribute no line and no total — the customer
+    // asks for the price in the chat instead.
+    if (unitPrice !== null) {
+      const lineTotal = unitPrice * quantity;
+      total += lineTotal;
+      lines.push(`   السعر:  ${formatPrice(lineTotal)}`);
+    }
+
     lines.push("───────────────────");
   });
 
   lines.push("━━━━━━━━━━━━━━━━━━━━");
   lines.push("");
-  lines.push(`الإجمالي: ${formatPrice(total)}`);
-  lines.push("");
+  if (total > 0) {
+    lines.push(`الإجمالي: ${formatPrice(total)}`);
+    lines.push("");
+  }
   lines.push("شكراً لكم");
 
   return stripBidiMarks(lines.join("\n"));
@@ -129,7 +137,8 @@ export function buildProductInquiryMessage(
     "",
     `• ${product.name}`,
     `الرابط: ${productUrl(product.slug)}`,
-    `السعر: ${formatPrice(price)}`,
+    // Price line is dropped entirely when the product has no price set.
+    ...(price !== null ? [`السعر: ${formatPrice(price)}`] : []),
     "",
     "شكراً لكم",
   ].join("\n");

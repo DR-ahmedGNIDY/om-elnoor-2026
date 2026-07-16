@@ -164,29 +164,31 @@ export default async function ProductPage({ params }: Props) {
             </p>
           )}
 
-          {/* Pricing */}
-          <div className="rounded-2xl bg-gray-50 border border-gray-100 p-5 space-y-2">
-            <div className="flex items-end gap-3 flex-wrap">
-              <span className="font-cairo font-black text-3xl text-primary">
-                {formatPrice(price)}
-              </span>
-              {product.discountPercent > 0 && (
-                <>
-                  <span className="font-cairo text-lg text-brand-text/40 line-through mb-0.5">
-                    {formatPrice(product.originalPrice)}
-                  </span>
-                  <span className="badge badge-gold">
-                    وفّر {product.discountPercent}%
-                  </span>
-                </>
+          {/* Pricing — the whole section is dropped when no price is set */}
+          {price !== null && (
+            <div className="rounded-2xl bg-gray-50 border border-gray-100 p-5 space-y-2">
+              <div className="flex items-end gap-3 flex-wrap">
+                <span className="font-cairo font-black text-3xl text-primary">
+                  {formatPrice(price)}
+                </span>
+                {product.discountPercent > 0 && product.originalPrice !== null && (
+                  <>
+                    <span className="font-cairo text-lg text-brand-text/40 line-through mb-0.5">
+                      {formatPrice(product.originalPrice)}
+                    </span>
+                    <span className="badge badge-gold">
+                      وفّر {product.discountPercent}%
+                    </span>
+                  </>
+                )}
+              </div>
+              {product.discountPercent > 0 && product.originalPrice !== null && (
+                <p className="font-cairo text-sm text-green-700 font-bold">
+                  💰 توفير {formatPrice(product.originalPrice - price)}
+                </p>
               )}
             </div>
-            {product.discountPercent > 0 && (
-              <p className="font-cairo text-sm text-green-700 font-bold">
-                💰 توفير {formatPrice(product.originalPrice - price)}
-              </p>
-            )}
-          </div>
+          )}
 
           {/* Actions */}
           <div className="flex flex-col gap-3">

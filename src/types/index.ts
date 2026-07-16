@@ -41,9 +41,10 @@ export type ProductDTO = {
   description:   string;
   categoryId:    string;
   images:        string[];
-  originalPrice: number;
+  /** null = no price set. Both prices are independently optional. */
+  originalPrice: number | null;
   discountPrice: number | null;
-  /** Always derived — never stored. Computed as Math.round((1 - discountPrice/originalPrice) * 100) */
+  /** Always derived — never stored. 0 unless both prices are set and discountPrice is lower. */
   discountPercent: number;
   available:     boolean;
   isFeatured:    boolean;
@@ -108,7 +109,7 @@ export type ProductFormValues = {
   categoryId:    string;
   /** Already-saved image URLs (persisted in DB) */
   images:        string[];
-  originalPrice: number;
+  originalPrice: number | null;
   discountPrice: number | null;
   available:     boolean;
   isFeatured:    boolean;

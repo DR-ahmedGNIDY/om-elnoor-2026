@@ -136,14 +136,16 @@ export function CartDrawer({ open, onClose }: CartDrawerProps) {
         {/* Footer */}
         {items.length > 0 && (
           <div className="flex-shrink-0 border-t border-gray-100 bg-gray-50 px-5 py-5 space-y-4">
-            {/* Subtotal */}
+            {/* Subtotal — the amount is dropped when no item carries a price */}
             <div className="flex items-center justify-between">
               <span className="font-cairo font-bold text-brand-text/70">
                 الإجمالي ({count} منتج)
               </span>
-              <span className="font-cairo font-black text-xl text-primary">
-                {formatPrice(subtotal)}
-              </span>
+              {subtotal > 0 && (
+                <span className="font-cairo font-black text-xl text-primary">
+                  {formatPrice(subtotal)}
+                </span>
+              )}
             </div>
 
             {/* WhatsApp checkout */}
@@ -217,9 +219,11 @@ function CartDrawerItem({
         >
           {product.name}
         </Link>
-        <p className="font-cairo font-black text-primary text-sm mt-1">
-          {formatPrice(price * quantity)}
-        </p>
+        {price !== null && (
+          <p className="font-cairo font-black text-primary text-sm mt-1">
+            {formatPrice(price * quantity)}
+          </p>
+        )}
       </div>
 
       {/* Controls */}

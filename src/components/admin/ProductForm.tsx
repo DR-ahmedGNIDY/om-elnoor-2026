@@ -49,7 +49,7 @@ export function ProductForm({
     description: product?.description ?? "",
     categoryId: product?.categoryId ?? (categories[0]?.id ?? ""),
     images: product?.images ?? [],
-    originalPrice: product?.originalPrice ?? (0 as unknown as number),
+    originalPrice: product?.originalPrice ?? null,
     discountPrice: product?.discountPrice ?? null,
     available: product?.available ?? true,
     isFeatured: product?.isFeatured ?? false,
@@ -57,13 +57,11 @@ export function ProductForm({
   },
 });
 
-console.log("FORM ERRORS:", errors);
-
   const images       = watch("images");
-  console.log(images);
   const origPrice    = watch("originalPrice");
   const discPrice    = watch("discountPrice");
-  const discPercent  = calcDiscountPercent(Number(origPrice), discPrice ?? null);
+  const discPercent  = calcDiscountPercent(origPrice, discPrice);
+  const previewPrice = discPrice ?? origPrice;
 
   // ── Multi-image upload ──────────────────────────────────────
   const handleFilesChange = useCallback(
@@ -120,8 +118,6 @@ console.log("FORM ERRORS:", errors);
 
   // ── Submit ──────────────────────────────────────────────────
   const onSubmit = async (values: ProductFormValues) => {
-  console.log("FORM SUBMITTED", values);
-
     setSubmitting(true);
     setServerError(null);
 
@@ -340,17 +336,26 @@ console.log("FORM ERRORS:", errors);
           {/* Original price */}
           <div>
             <label htmlFor="p-orig" className="form-label">
-              السعر الأصلي (ج.م) <span className="text-red-500">*</span>
+              السعر الأصلي (ج.م)
             </label>
-            <input
-              id="p-orig"
-              type="number"
-              min={0}
-              step="0.01"
-              disabled={busy}
-              {...register("originalPrice", { valueAsNumber: true })}
-              className={cn(field("originalPrice"), "text-center")}
-              placeholder="0"
+            <Controller
+              name="originalPrice"
+              control={control}
+              render={({ field: f }) => (
+                <input
+                  id="p-orig"
+                  type="number"
+                  min={0}
+                  step="0.01"
+                  disabled={busy}
+                  value={f.value ?? ""}
+                  onChange={(e) =>
+                    f.onChange(e.target.value === "" ? null : Number(e.target.value))
+                  }
+                  className={cn(field("originalPrice"), "text-center")}
+                  placeholder="اتركه فارغاً إن لم يكن هناك سعر"
+                />
+              )}
             />
             {errors.originalPrice && (
               <p className="form-error">{errors.originalPrice.message}</p>
@@ -392,17 +397,17 @@ console.log("FORM ERRORS:", errors);
           </div>
         </div>
 
-        {/* Price preview */}
-        {Number(origPrice) > 0 && (
+        {/* Price preview — hidden entirely when neither price is set */}
+        {previewPrice !== null && (
           <div className="rounded-xl bg-gray-50 border border-gray-100 px-4 py-3 flex items-center gap-4 flex-wrap">
             <span className="font-cairo text-sm text-brand-text/60">معاينة:</span>
             <span className="font-cairo font-black text-lg text-primary">
-              {formatPrice(discPrice ?? Number(origPrice))}
+              {formatPrice(previewPrice)}
             </span>
-            {discPercent > 0 && (
+            {discPercent > 0 && origPrice !== null && (
               <>
                 <span className="font-cairo text-sm line-through text-brand-text/30">
-                  {formatPrice(Number(origPrice))}
+                  {formatPrice(origPrice)}
                 </span>
                 <span className="badge badge-gold">وفّر {discPercent}%</span>
               </>

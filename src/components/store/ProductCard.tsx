@@ -71,17 +71,19 @@ export function ProductCard({ product }: ProductCardProps) {
           </h3>
         </Link>
 
-        {/* Price row */}
-        <div className="flex items-center gap-2 mb-3 flex-wrap">
-          <span className="font-cairo font-black text-base text-primary">
-            {formatPrice(price)}
-          </span>
-          {discPercent > 0 && (
-            <span className="font-cairo text-xs text-brand-text/40 line-through">
-              {formatPrice(product.originalPrice)}
+        {/* Price row — omitted (no reserved space) when the product has no price */}
+        {price !== null && (
+          <div className="flex items-center gap-2 mb-3 flex-wrap">
+            <span className="font-cairo font-black text-base text-primary">
+              {formatPrice(price)}
             </span>
-          )}
-        </div>
+            {discPercent > 0 && product.originalPrice !== null && (
+              <span className="font-cairo text-xs text-brand-text/40 line-through">
+                {formatPrice(product.originalPrice)}
+              </span>
+            )}
+          </div>
+        )}
 
         {/* Add to cart */}
         <button
